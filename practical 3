@@ -1,0 +1,39 @@
+from google.colab import files
+uploaded = files.upload()
+!pip install scikit-image opencv-python matplotlib
+import cv2
+import matplotlib.pyplot as plt
+from skimage.feature import hog
+from skimage import exposure
+image = cv2.imread("siberian_tiger.jpg")
+# Convert BGR to RGB (for display)
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Convert to Grayscale
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+features, hog_image = hog(
+    gray,
+    orientations=9,
+    pixels_per_cell=(8, 8),
+    cells_per_block=(2, 2),
+    block_norm='L2-Hys',
+    visualize=True
+)
+hog_image_rescaled = exposure.rescale_intensity(
+    hog_image, in_range=(0, 10)
+)
+plt.figure(figsize=(10, 5))
+
+plt.subplot(1, 2, 1)
+plt.title("Original Image")
+plt.imshow(image_rgb)
+plt.axis("off")
+
+plt.subplot(1, 2, 2)
+plt.title("HOG Feature Visualization")
+plt.imshow(hog_image_rescaled, cmap="gray")
+plt.axis("off")
+
+plt.tight_layout()
+plt.show()
+print("HOG feature vector length:", len(features))
