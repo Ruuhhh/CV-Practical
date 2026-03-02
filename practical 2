@@ -1,0 +1,46 @@
+img = imread('cameraman.tif');
+
+Mee
+
+imshow(img);
+title('Original Image');
+
+untitled.m
+
+img = double(img);
+
+5
+
+kernel_mean = ones (3,3) / 9;
+smooth_mean - conv2(img, kernel_mean, 'same');
+
+7
+
+figure
+
+8
+
+imshow
+imshow(uint8(smooth_mean));
+
+More
+
+title('Smoothed Image using Mean Filter');
+
+10
+
+sigma = 1;
+
+11
+
+kernel_gaussian = fspecial('gaussian', [3 3], sigma);
+mooth_gaussian - conv2(img, kernel_gaussian, 'same');
+
+13
+
+figurci
+
+14
+
+imshow(uint8(smooth_gaussian));
+title('Smoothed Image using Gaussian Filter');
